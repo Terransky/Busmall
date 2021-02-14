@@ -81,8 +81,9 @@ function renderImages() {
 
 }
 
+
+// need event listener, handler, removal, and button
+
 renderImages();
 
-
-
-// event listener, handler, removal, and button
+//forgot to make a new branch for today
