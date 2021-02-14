@@ -26,6 +26,7 @@ console.log(imgArr); // remove later
 let productArr = [];
 let imgCache = [];
 
+let imgContainerGroup = document.querySelector("body main");
 let imgContainerOne = document.querySelector("img:first-child");
 let imgContainerTwo = document.querySelector("img:nth-child(2)");
 let imgContainerThree = document.querySelector("img:nth-child(3)");
@@ -58,7 +59,7 @@ function assignRandomImg() {
   console.log(randomInt());
 
  while ((imgOne === imgTwo) || (imgOne === imgThree) || (imgTwo === imgThree)) { //will rewrite this later using prototype.includes
-    assignRandomImg(); //recursion, right?
+    assignRandomImg(); //recursion, run again from the top
   }
   
   imgCache.push(imgOne, imgTwo, imgThree);
@@ -86,4 +87,22 @@ function renderImages() {
 
 renderImages();
 
-//forgot to make a new branch for today
+let totalClicks = 0;
+
+function handleClick(event) {
+  totalClicks++;
+  let imgClicked = event.target.querySelector("img");
+
+  for (let i in imgCache) {
+    if (imgClicked === imgCache[i].src) {
+      imgCache[i].votes++;
+    }
+  }
+  renderImages();
+  if (totalClicks === rounds) {
+    imgContainerGroup.removeEventListener('click', handleClick);
+  }
+}
+
+
+imgContainerGroup.addEventListener('click', handleClick);
