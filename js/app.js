@@ -51,10 +51,15 @@ function randomInt() {
   return Math.floor(Math.random() * productArr.length); // referenced from MDN
 }
 
+let imgOne;
+let imgTwo;
+let imgThree;
+
 function assignRandomImg() {
-  let imgOne = productArr[randomInt()];
-  let imgTwo = productArr[randomInt()];
-  let imgThree = productArr[randomInt()];
+ 
+  imgOne = productArr[randomInt()];
+  imgTwo = productArr[randomInt()];
+  imgThree = productArr[randomInt()];
 
   console.log(randomInt());
 
