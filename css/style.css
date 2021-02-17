@@ -16,3 +16,13 @@ img {
  
 }
 
+button {
+  display: block;
+  margin: auto;
+  
+}
+
+ul {
+  display: block;
+  margin: auto; 
+}
