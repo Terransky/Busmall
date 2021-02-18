@@ -61,7 +61,7 @@ let imgTwo;
 let imgThree;
 
 function assignRandomImg() {
- 
+  
   imgOne = productArr[randomInt()];
   imgTwo = productArr[randomInt()];
   imgThree = productArr[randomInt()];
@@ -70,49 +70,47 @@ function assignRandomImg() {
   while ((imgOne === imgTwo) || (imgOne === imgThree) || (imgTwo === imgThree)) { //will rewrite this later using prototype.includes
     assignRandomImg(); //recursion, run again from the top
   }  
- 
+
+  clearCache();
   imgCache.push(imgOne, imgTwo, imgThree);
 
-  console.log(imgCachePrevious);
-  console.log(imgCache);
-
+  
  
 }
+
+
 
 function storeCache() {
   for (let i = 0; i < 3; i++) {
     imgCachePrevious[i] = imgCache[i]; 
   }
+  assignRandomImg();
 }
 
-storeCache();
-console.log(imgCachePrevious);
-  console.log(imgCache);
-console.log(imgCachePrevious.includes(imgCache));
-
-// function compareCache() { 
-
-//   assignRandomImg();
+function compareCache() { 
   
-//   for (let i = 0; i < 3; i++) {
+  for (let i = 0; i < 3; i++) {
 
-//     while (imgCachePrevious.includes(imgCache[0])) {
-//       imgCache.pop();
-//       assignRandomImg();
-//     }
-//   }
+    if (imgCachePrevious.includes(imgCache[i])) {
+      assignRandomImg();;
+    }    
+  }
 
-  
-  
-//   imgCache.push(imgOne, imgTwo, imgThree);
+  for (let i = 0; i < 3; i++) {
 
- 
-// }
+    if (imgCachePrevious.includes(imgCache[i])) {
+      compareCache(); // to make sure it worked the first time, if not, run again
+    }    
+  }
+
+  console.log(imgCachePrevious);
+    console.log(imgCache);
+}
+
+
 
 
 function renderImages() {
- 
-  assignRandomImg();
  
   imgContainerOne.src = imgCache[0].src;
   imgContainerTwo.src = imgCache[1].src;
@@ -134,6 +132,7 @@ function clearCache() {
 
 // Image rendering
 
+assignRandomImg();
 renderImages();
 
 let totalClicks = 0;
@@ -146,10 +145,11 @@ function handleClick(event) {
   for (let i in imgCache) {
     if (imgClicked === imgCache[i].src) {
       imgCache[i].votes++;
-      clearCache();
       
-      renderImages();
       storeCache();
+      compareCache();
+      renderImages();
+
     }
   }
   
