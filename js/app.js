@@ -25,6 +25,7 @@ let imgArr = ["bag", "banana", "bathroom", "boots", "breakfast", "bubblegum", "c
 
 let productArr = [];
 let imgCache = [];
+let imgCachePrevious = [];
 
 let imgContainerGroup = document.querySelector("body main");
 let imgContainerOne = document.querySelector("img:first-child");
@@ -66,15 +67,48 @@ function assignRandomImg() {
   imgThree = productArr[randomInt()];
 
   
-
- while ((imgOne === imgTwo) || (imgOne === imgThree) || (imgTwo === imgThree)) { //will rewrite this later using prototype.includes
+  while ((imgOne === imgTwo) || (imgOne === imgThree) || (imgTwo === imgThree)) { //will rewrite this later using prototype.includes
     assignRandomImg(); //recursion, run again from the top
-  }
-  
+  }  
+ 
   imgCache.push(imgOne, imgTwo, imgThree);
-  
-  
+
+  console.log(imgCachePrevious);
+  console.log(imgCache);
+
+ 
 }
+
+function storeCache() {
+  for (let i = 0; i < 3; i++) {
+    imgCachePrevious[i] = imgCache[i]; 
+  }
+}
+
+storeCache();
+console.log(imgCachePrevious);
+  console.log(imgCache);
+console.log(imgCachePrevious.includes(imgCache));
+
+// function compareCache() { 
+
+//   assignRandomImg();
+  
+//   for (let i = 0; i < 3; i++) {
+
+//     while (imgCachePrevious.includes(imgCache[0])) {
+//       imgCache.pop();
+//       assignRandomImg();
+//     }
+//   }
+
+  
+  
+//   imgCache.push(imgOne, imgTwo, imgThree);
+
+ 
+// }
+
 
 function renderImages() {
  
@@ -98,7 +132,7 @@ function clearCache() {
 }
 
 
-// need event listener, handler, removal, and button
+// Image rendering
 
 renderImages();
 
@@ -115,6 +149,7 @@ function handleClick(event) {
       clearCache();
       
       renderImages();
+      storeCache();
     }
   }
   
