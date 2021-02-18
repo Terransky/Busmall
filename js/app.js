@@ -25,6 +25,7 @@ let imgArr = ["bag", "banana", "bathroom", "boots", "breakfast", "bubblegum", "c
 
 let productArr = [];
 let imgCache = [];
+let imgCachePrevious = [];
 
 let imgContainerGroup = document.querySelector("body main");
 let imgContainerOne = document.querySelector("img:first-child");
@@ -60,25 +61,56 @@ let imgTwo;
 let imgThree;
 
 function assignRandomImg() {
- 
+  
   imgOne = productArr[randomInt()];
   imgTwo = productArr[randomInt()];
   imgThree = productArr[randomInt()];
 
   
-
- while ((imgOne === imgTwo) || (imgOne === imgThree) || (imgTwo === imgThree)) { //will rewrite this later using prototype.includes
+  while ((imgOne === imgTwo) || (imgOne === imgThree) || (imgTwo === imgThree)) { //will rewrite this later using prototype.includes
     assignRandomImg(); //recursion, run again from the top
-  }
-  
+  }  
+
+  clearCache();
   imgCache.push(imgOne, imgTwo, imgThree);
+
   
-  
+ 
 }
 
-function renderImages() {
- 
+
+
+function storeCache() {
+  for (let i = 0; i < 3; i++) {
+    imgCachePrevious[i] = imgCache[i]; 
+  }
   assignRandomImg();
+}
+
+function compareCache() { 
+  
+  for (let i = 0; i < 3; i++) {
+
+    if (imgCachePrevious.includes(imgCache[i])) {
+      assignRandomImg();;
+    }    
+  }
+
+  for (let i = 0; i < 3; i++) {
+
+    if (imgCachePrevious.includes(imgCache[i])) {
+      compareCache(); // to make sure it worked the first time, if not, run again
+    }    
+  }
+
+  console.log(imgCachePrevious);
+    console.log(imgCache);
+}
+
+
+
+
+function renderImages() {
  
   imgContainerOne.src = imgCache[0].src;
   imgContainerTwo.src = imgCache[1].src;
@@ -98,8 +130,9 @@ function clearCache() {
 }
 
 
-// need event listener, handler, removal, and button
+// Image rendering
 
+assignRandomImg();
 renderImages();
 
 let totalClicks = 0;
@@ -112,9 +145,11 @@ function handleClick(event) {
   for (let i in imgCache) {
     if (imgClicked === imgCache[i].src) {
       imgCache[i].votes++;
-      clearCache();
       
+      storeCache();
+      compareCache();
       renderImages();
+
     }
   }
   
