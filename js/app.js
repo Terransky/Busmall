@@ -1,20 +1,6 @@
 
 'use strict';
 
-//guidelines : display 3 random, unique products from catalogue, create constructor function that makes an object for each product with properties name, file path, views, and votes.
-
-// make a function that selects and renders 3 random images side by side for viewing and selection
-
-// use an event listener that handles clicks for the images. Once clicked, generate new products for 25 rounds total.
-
-// global variables that controls # of rounds
-
-// create property in constructor that keeps tracks of all products currently being considered (what? like an array of them?)
-
-// after voting rounds, remove event listener and add button with text View Results which displays the list of all products followed by the votes and number of times viewed. e.g. "dog-duck had 3 votes, and was seen 5 times".
-
-
-
 // Global variables
 
 const rounds = 25;
@@ -26,6 +12,9 @@ let imgArr = ["bag", "banana", "bathroom", "boots", "breakfast", "bubblegum", "c
 let productArr = [];
 let imgCache = [];
 let imgCachePrevious = [];
+
+let votes = new Array(20).fill(0);
+let views = new Array(20).fill(0);
 
 let imgContainerGroup = document.querySelector("body main");
 let imgContainerOne = document.querySelector("img:first-child");
@@ -102,9 +91,7 @@ function compareCache() {
       compareCache(); // to make sure it worked the first time, if not, run again
     }    
   }
-
-  console.log(imgCachePrevious);
-    console.log(imgCache);
+ 
 }
 
 
@@ -167,10 +154,97 @@ function handleButton(event){
     li.appendChild(temp);
     uList.appendChild(li);
   }
+
+  for (let i = 0; i < productArr.length; i++) {
+    views[i] = (productArr[i].views);
+    votes[i] = productArr[i].votes;
+    console.log(views, votes);
+  }
+
+  let myChart = new Chart(ctx, chartObject);
   button.removeEventListener('click', handleButton);
 }
 
 imgContainerGroup.addEventListener('click', handleClick);
 button.addEventListener('click', handleButton);
 
-// after voting rounds, remove event listener and add button with text View Results which displays the list of all products followed by the votes and number of times viewed. e.g. "dog-duck had 3 votes, and was seen 5 times".
+
+
+// chart
+var ctx = document.getElementById('myChart').getContext('2d');
+document.getElementById("canvas").style.visibility = "visible"; 
+    // The type of chart we want to create
+var chartObject = {
+  type: 'bar',
+  data: {
+    labels: imgArr,
+    datasets: [{
+      label: '# of Votes',
+      hoverBackgroundColor: 'rgba(255, 00, 00, 0.2)',
+      data: votes,
+      backgroundColor: [
+        'rgba(255, 00, 00, 0.2)',
+        'rgba(255, 00, 00, 0.2)',
+        'rgba(255, 00, 00, 0.2)',
+        'rgba(255, 00, 00, 0.2)',
+        'rgba(255, 00, 00, 0.2)',
+        'rgba(255, 00, 00, 0.2)',
+        'rgba(255, 00, 00, 0.2)',
+        'rgba(255, 00, 00, 0.2)',
+        'rgba(255, 00, 00, 0.2)',
+        'rgba(255, 00, 00, 0.2)',
+        'rgba(255, 00, 00, 0.2)',
+        'rgba(255, 00, 00, 0.2)',
+        'rgba(255, 00, 00, 0.2)',
+        'rgba(255, 00, 00, 0.2)',
+        'rgba(255, 00, 00, 0.2)',
+        'rgba(255, 00, 00, 0.2)',
+        'rgba(255, 00, 00, 0.2)',
+        'rgba(255, 00, 00, 0.2)',
+        'rgba(255, 00, 00, 0.2)',
+        'rgba(255, 00, 00, 0.2)',
+      ],
+     
+      borderWidth: 1
+    },
+    {
+      label: '# of Views',
+      hoverBackgroundColor: 'rgba(00, 00, 235, 0.2)',
+      data: views,
+      backgroundColor: [
+        'rgba(00, 00, 235, 0.2)',
+        'rgba(00, 00, 235, 0.2)',
+        'rgba(00, 00, 235, 0.2)',
+        'rgba(00, 00, 235, 0.2)',
+        'rgba(00, 00, 235, 0.2)',
+        'rgba(00, 00, 235, 0.2)',
+        'rgba(00, 00, 235, 0.2)',
+        'rgba(00, 00, 235, 0.2)',
+        'rgba(00, 00, 235, 0.2)',
+        'rgba(00, 00, 235, 0.2)',
+        'rgba(00, 00, 235, 0.2)',
+        'rgba(00, 00, 235, 0.2)',
+        'rgba(00, 00, 235, 0.2)',
+        'rgba(00, 00, 235, 0.2)',
+        'rgba(00, 00, 235, 0.2)',
+        'rgba(00, 00, 235, 0.2)',
+        'rgba(00, 00, 235, 0.2)',
+        'rgba(00, 00, 235, 0.2)',
+        'rgba(00, 00, 235, 0.2)',
+        'rgba(00, 00, 235, 0.2)',
+        
+      ],
+      
+      borderWidth: 1
+    }]
+  },
+  options: {
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  }
+};
