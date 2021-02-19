@@ -26,9 +26,9 @@ let uList = document.querySelector("ul");
 
 
 
-function Product (name, src) {
+function Product (name, fileExt = 'jpg') {
   this.name = name;
-  this.src = src;
+  this.src = `img/${name}.${fileExt}`;
   this.views = 0;
   this.votes = 0;
   productArr.push(this);
@@ -36,8 +36,11 @@ function Product (name, src) {
 }
 
 for (let i = 0; i < imgArr.length; i++) {
-  productArr[i] = new Product (imgArr[i], `img/${imgArr[i]}.jpg`);
+  productArr[i] = new Product (imgArr[i]);
 }
+
+productArr[14].src = "img/sweep.png";
+productArr[17].src = "img/usb.gif";
 
 
 
