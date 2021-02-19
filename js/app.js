@@ -161,11 +161,11 @@ function handleButton(event){
   for (let i = 0; i < productArr.length; i++) {
     views.push(productArr[i].views);
     votes.push(productArr[i].votes);
-    console.log(views, votes);
   }
 
   let myChart = new Chart(ctx, chartObject);
   button.removeEventListener('click', handleButton);
+  document.getElementById("canvas").style.visibility = "visible";
 }
 
 imgContainerGroup.addEventListener('click', handleClick);
@@ -175,7 +175,7 @@ button.addEventListener('click', handleButton);
 
 // chart
 var ctx = document.getElementById('myChart').getContext('2d');
-document.getElementById("canvas").style.visibility = "visible"; 
+document.getElementById("canvas").style.visibility = "hidden"; 
     // The type of chart we want to create
 var chartObject = {
   type: 'bar',
