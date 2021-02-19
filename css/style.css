@@ -26,3 +26,7 @@ ul {
   display: block;
   margin: auto; 
 }
+
+#canvas {
+  background-color: floralwhite;
+}
