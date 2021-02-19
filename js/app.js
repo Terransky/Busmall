@@ -13,8 +13,8 @@ let productArr = [];
 let imgCache = [];
 let imgCachePrevious = [];
 
-let votes = new Array(20).fill(0);
-let views = new Array(20).fill(0);
+let votes = [];
+let views = [];
 
 let imgContainerGroup = document.querySelector("body main");
 let imgContainerOne = document.querySelector("img:first-child");
@@ -156,8 +156,8 @@ function handleButton(event){
   }
 
   for (let i = 0; i < productArr.length; i++) {
-    views[i] = (productArr[i].views);
-    votes[i] = productArr[i].votes;
+    views.push(productArr[i].views);
+    votes.push(productArr[i].votes);
     console.log(views, votes);
   }
 
