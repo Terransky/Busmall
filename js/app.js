@@ -35,12 +35,19 @@ function Product (name, fileExt = 'jpg') {
 
 }
 
-for (let i = 0; i < imgArr.length; i++) {
-  productArr[i] = new Product (imgArr[i]);
+
+if (localStorage.getItem('stored results')) { //this is true if it exists
+  productArr = JSON.parse(localStorage.getItem('stored results'));
+
+} else {
+  for (let i = 0; i < imgArr.length; i++) {
+    productArr[i] = new Product (imgArr[i]);
+  }
+  productArr[14].src = "img/sweep.png";
+  productArr[17].src = "img/usb.gif";
 }
 
-productArr[14].src = "img/sweep.png";
-productArr[17].src = "img/usb.gif";
+
 
 
 
@@ -144,6 +151,7 @@ function handleClick(event) {
   }
   
   if (totalClicks === rounds) {
+    localStorage.setItem('stored results', JSON.stringify(productArr));
     imgContainerGroup.removeEventListener('click', handleClick);
     button.addEventListener('click', handleButton);
   }
