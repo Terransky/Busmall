@@ -29,4 +29,7 @@ ul {
 
 #canvas {
   background-color: floralwhite;
+  padding: 100px;
+  margin: auto;
+  margin-top: 20px;
 }
