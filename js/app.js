@@ -70,7 +70,7 @@ function assignRandomImg() {
     assignRandomImg(); //recursion, run again from the top
   }  
 
-  clearCache();
+  imgCache = []; // empty the array before repopulating
   imgCache.push(imgOne, imgTwo, imgThree);
   
 }
@@ -117,13 +117,6 @@ function renderImages() {
   
 
 }
-
-function clearCache() {
-  for (let i = imgCache.length; i > 0; i--) {
-    imgCache.pop();    
-  }
-}
-
 
 // Image rendering
 
